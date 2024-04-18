@@ -30,7 +30,7 @@ const ModalCadastroUsuario = () => {
                 <AbCampoTexto label='Senha' value={senha} onChange={setSenha} />
                 <AbCampoTexto label='SenhaConfirmada' value={senhaConfirmada} onChange={setSenhaConfirmada} />
 
-                <footer className="acoes">
+                <footer>
                     <AbBotao texto="Cadastrar" />
                 </footer>
             </form>

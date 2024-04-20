@@ -1,5 +1,6 @@
 import { AbBotao, AbCampoTexto, AbModal } from "ds-alurabooks"
 import { useState } from "react";
+import axios from 'axios';
 
 import imagemPrincipal from './assets/login.png';
 
@@ -15,13 +16,43 @@ const ModalCadastroUsuario = () => {
     const [senha, setSenha] = useState('');
     const [senhaConfirmada, setSenhaConfirmada] = useState('');
 
+
+    const aoSubmeterFormular = (evento: React.FormEvent<HTMLFormElement>) => {
+        evento.preventDefault();
+        const usuario = {
+            nome,
+            email,
+            senha,
+            endereco,
+            cep,
+            complemento
+        }
+
+        console.log(usuario)
+
+        axios.post('http://localhost:8000/public/registrar', usuario)
+            .then(() => {
+                alert('Usuario foi cadastrado com sucesso!');
+                setNome('')
+                setEmail('')
+                setEndereco('')
+                setComplemento('')
+                setCep('')
+                setSenha('')
+                setSenhaConfirmada('')
+            })
+            .catch(() => {
+                alert('ops! alguma coisa deu errado!')
+            })
+    }
+
     return (<AbModal titulo="Cadastrar" aberta={true} aoFechar={() => console.log('fecha ai')}>
         <div className="corpoModalCadastro">
             <figure>
                 <img src={imagemPrincipal} alt="Monitor com uma fechadura e uma pessoa com uma chave ao lado." />
             </figure>
 
-            <form>
+            <form onSubmit={aoSubmeterFormular}>
                 <AbCampoTexto label='Nome' value={nome} onChange={setNome} />
                 <AbCampoTexto label='Email' value={email} onChange={setEmail} />
                 <AbCampoTexto label='Endereco' value={endereco} onChange={setEndereco} />

@@ -6,8 +6,12 @@ import imagemPrincipal from './assets/login.png';
 
 import './ModalCadastroUsuario.css';
 
+interface PropsModalCadastroUsuario {
+    aberta: boolean
+    aoFechar: () => void
+}
 
-const ModalCadastroUsuario = () => {
+const ModalCadastroUsuario = ({ aberta, aoFechar }: PropsModalCadastroUsuario) => {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [endereco, setEndereco] = useState('');
@@ -40,13 +44,14 @@ const ModalCadastroUsuario = () => {
                 setCep('')
                 setSenha('')
                 setSenhaConfirmada('')
+                aoFechar();
             })
             .catch(() => {
                 alert('ops! alguma coisa deu errado!')
             })
     }
 
-    return (<AbModal titulo="Cadastrar" aberta={true} aoFechar={() => console.log('fecha ai')}>
+    return (<AbModal titulo="Cadastrar" aberta={aberta} aoFechar={aoFechar}>
         <div className="corpoModalCadastro">
             <figure>
                 <img src={imagemPrincipal} alt="Monitor com uma fechadura e uma pessoa com uma chave ao lado." />

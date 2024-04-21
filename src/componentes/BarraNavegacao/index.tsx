@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom"
 import BotaoNavegacao from "../BotaoNavegacao"
 import ModalCadastroUsuario from "../ModalCadastroUsuario"
+import ModalLoginUsuario from "../ModalLoginUsuario"
+
 import logo from './assets/logo.png'
 import usuario from './assets/usuario.svg'
 import './BarraNavegacao.css'
 import { useState } from "react"
 
+
 const BarraNavegacao = () => {
 
     const [modalCadastroAberta, setModalCadastroAberta] = useState(false);
+    const [modalLoginAberta, setModalLoginAberta] = useState(false);
 
     return (<nav className="ab-navbar">
         <h1 className="logo">
@@ -50,7 +54,12 @@ const BarraNavegacao = () => {
         </ul>
         <ul className="acoes">
             <li>
-                <BotaoNavegacao texto="Login" textoAltSrc="Icone representando um usuário" imagemSrc={usuario} />
+                <BotaoNavegacao
+                    texto="Login"
+                    textoAltSrc="Icone representando um usuário"
+                    imagemSrc={usuario}
+                    onClick={() => setModalLoginAberta(true)} />
+                <ModalLoginUsuario aberta={modalLoginAberta} aoFechar={() => setModalLoginAberta(false)} aoEfetuarLogin={() => console.log('oi')} />
             </li>
             <li>
                 <BotaoNavegacao

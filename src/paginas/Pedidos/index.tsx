@@ -9,6 +9,7 @@ import { IPedido } from '../../interfaces/IPedido'
 const Pedidos = () => {
 
     const [pedidos, setPedidos] = useState<IPedido[]>([])
+    const formatador = Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -29,7 +30,7 @@ const Pedidos = () => {
                 <ul>
                     <li>Pedido: <strong>{pedido.id}</strong></li>
                     <li>Data do pedido: <strong>{new Date(pedido.data).toLocaleDateString()}</strong></li>
-                    <li>Valor total: <strong>R$ {pedido.total}</strong></li>
+                    <li>Valor total: <strong>{formatador.format(pedido.total)}</strong></li>
                     <li>Entrega realizada em: <strong>{new Date(pedido.entrega).toLocaleDateString()}</strong></li>
                 </ul>
                 <AbBotao texto="Detalhes" />

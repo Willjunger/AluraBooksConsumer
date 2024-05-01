@@ -11,13 +11,8 @@ const Pedidos = () => {
     const formatador = Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-
-        http.get<IPedido[]>('pedidos', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        }).then(resposta => setPedidos(resposta.data))
+        http.get<IPedido[]>('pedidos')
+            .then(resposta => setPedidos(resposta.data))
             .catch(erro => console.log(erro))
     }, [])
 

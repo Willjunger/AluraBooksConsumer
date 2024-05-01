@@ -1,4 +1,6 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
+import { history } from "../App";
 
 const http = axios.create({
     baseURL: 'http://localhost:8000',
@@ -16,9 +18,11 @@ http.interceptors.request.use(function (config) {
     }
     
     return config;
-}, function (error) {
-    // Do something with request error (ou "fazer alguma coisa com o erro da requisição")
-    console.log('erro no interceptor do axios')
+}, function (error: AxiosError) {
+    if (error.response?.status === 401) {
+        history.push('/') // aqui estamos navegando de forma progamática, enviando o usuário para onde queremos.
+        return Promise.reject()
+      }
     return Promise.reject(error);
     });
 
